@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<style>
+
+    body {
+        margin: 50px;
+        background-color: #f8f9fa;
+            background-image: url('./img/kfctop.png'); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+    
+    }
+    .container {
+        max-width: 500px;
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+    }
+    .form-control {
+        border-radius: 3px;
+    }
+    .icon {
+        font-size: 24px;
+    }
+    .requirements li {
+        color: #999;
+    }
+    .requirements li.valid {
+        color: green;
+    }
+</style>
+<body >
+    
+<div class="container">
+    <h3><i class="bi bi-person-plus icon"></i> Sign Up</h3>
+    <form class="row g-3">
+        <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-md-12">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword4">
+            <ul class="list-unstyled requirements">
+                <li class="length">One lowercase character</li>
+                <li class="uppercase">One uppercase character</li>
+                <li class="number">One number</li>
+                <li class="special">One special character</li>
+                <li class="min-length">8 characters minimum</li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="inputConfirmPassword">
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle icon"></i> Sign Up</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const passwordInput = document.getElementById('inputPassword4');
+    const requirements = document.querySelectorAll('.requirements li');
+
+    passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+
+        
+        requirements.forEach(requirement => {
+            const isValid = checkRequirement(requirement.classList[0], password);
+            if (isValid) {
+                requirement.classList.add('valid');
+            } else {
+                requirement.classList.remove('valid');
+            }
+        });
+    });
+
+    function checkRequirement(className, password) {
+        switch (className) {
+            case 'length':
+                return password.length >= 8;
+            case 'uppercase':
+                return /[A-Z]/.test(password);
+            case 'lowercase':
+                return /[a-z]/.test(password);
+            case 'number':
+                return /\d/.test(password);
+            case 'special':
+                return /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            default:
+                return false;
+        }
+    }
+</script>
+
+</body>
+</html>
